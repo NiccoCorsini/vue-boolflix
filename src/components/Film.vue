@@ -10,7 +10,7 @@
             : film.original_title
         }}
       </li>
-      <li>
+      <li class="img">
         <span v-if="languageFlag(film.original_language)">
           <img
             :src="require(`../assets/img/${film.original_language}.png`)"
@@ -21,6 +21,7 @@
       </li>
       <li :stars="Math.round(film.vote_average / 2)">
         <span
+          class="yellow"
           v-for="(star, index) in Math.round(film.vote_average / 2)"
           :key="index"
           ><i class="fas fa-star"></i
@@ -54,4 +55,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+ul {
+  li {
+    &:last-child {
+      span.yellow {
+        color: yellow;
+      }
+    }
+  }
+  li.img {
+    img {
+      width: 24px;
+    }
+  }
+}
+</style>
