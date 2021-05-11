@@ -129,6 +129,7 @@ export default {
 @import "../style/vars";
 
 header {
+  z-index: 3;
   width: 100%;
   height: 70px;
   position: fixed;

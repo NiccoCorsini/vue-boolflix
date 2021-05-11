@@ -74,5 +74,13 @@ main.container {
     flex-wrap: wrap;
     justify-content: space-between;
   }
+  .film {
+    cursor: pointer;
+    padding: 2rem 1rem;
+    transition: transform 400ms;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 </style>
