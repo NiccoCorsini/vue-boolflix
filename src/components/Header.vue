@@ -21,16 +21,22 @@
       </div>
       <div class="right">
         <ul>
-          <li @click="onfocus">
+          <li @click.prevent="onfocus($event)">
             <i class="fas fa-search"></i>
+
             <input
               type="text"
               v-model.trim="search"
               placeholder="Titoli, Persone, Generi"
-              ref="search"
               @keyup="$emit('reSearch', result)"
               @keyup.esc="resetValue"
+              ref="search"
             />
+            <i
+              v-show="focusOn"
+              @click.prevent="resetValue($event)"
+              class="fas fa-times"
+            ></i>
 
             <!-- <form :class="{ active: focusOn }" action="">
               <input type="text" name="" id="" v-model.trim="search" />
@@ -71,8 +77,10 @@ export default {
     };
   },
   updated() {
+    this.resetLibrary();
     this.getApi();
     this.apiRecent();
+    this.overX();
   },
   methods: {
     getApi() {
@@ -115,11 +123,30 @@ export default {
           }
         });
     },
-    onfocus() {
+    onfocus(event) {
+      event.stopPropagation();
       this.$refs.search.focus();
     },
-    resetValue() {
+    resetValue(event) {
+      event.stopPropagation();
       this.search = "";
+      // if (this.search == "") {
+      //   this.result = undefined;
+      // }
+      // this.$refs.search.focus();
+    },
+    resetLibrary() {
+      if (this.search == "") {
+        this.result = undefined;
+        this.$emit("reSearch", {});
+      }
+    },
+    overX() {
+      if (this.search !== "") {
+        this.focusOn = true;
+      } else {
+        this.focusOn = false;
+      }
     },
   },
 };
@@ -200,17 +227,16 @@ header {
             align-items: center;
             position: relative;
 
-            // form {
-            //   width: 0;
-            //   overflow: hidden;
-            //   transition: width 300ms;
-            // }
-
             i {
               position: absolute;
               left: 7px;
               cursor: pointer;
               z-index: 3;
+
+              &:last-child {
+                left: auto;
+                right: 10px;
+              }
             }
 
             input {
@@ -218,10 +244,12 @@ header {
               width: 0;
               outline: none;
               background: transparent;
-              border: 1px solid white;
+              border: none;
               padding: 7px 0px 7px 30px;
               color: white;
               opacity: 0;
+              border: 1px solid white;
+
               &::placeholder {
                 color: rgb(170, 170, 170);
                 padding-left: 30px;

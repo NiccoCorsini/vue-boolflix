@@ -1,6 +1,15 @@
 <template>
   <main class="container">
+    <!-- <h1>tv</h1> -->
     <div v-if="showStart" class="preview">
+      <!-- <div
+        class="film"
+        v-for="(film, index) in objTv"
+        :key="objTv.id + '-' + index"
+      >
+        <Film :film="film" />
+      </div> -->
+
       <div
         class="film"
         v-for="(film, index) in objStart.results"
@@ -14,7 +23,7 @@
       <div
         class="film"
         v-for="(film, index) in objRes.results"
-        :key="objRes.total_results + '-' + index"
+        :key="film.id + '-' + index"
       >
         <Film :film="film" />
       </div>
@@ -38,10 +47,13 @@ export default {
     return {
       objStart: {},
       showStart: false,
+      objTv: [],
+      objMovie: {},
     };
   },
   updated() {
     this.getApiStart();
+    // console.log(this.objTv);
   },
   created() {
     this.getApiStart();
@@ -56,6 +68,15 @@ export default {
           if (this.objRes.results === undefined) {
             this.showStart = true;
             this.objStart = res.data;
+            // res.data.results.forEach((element) => {
+            //   if (element.media_type == "tv") {
+            //     this.objTv.push(element);
+            //   }
+            // });
+
+            // this.objTv = res.data.results.filter(
+            //   (element) => element.media_type == "tv"
+            // );
           } else if (this.objRes.results.length > 0) {
             this.showStart = false;
           }

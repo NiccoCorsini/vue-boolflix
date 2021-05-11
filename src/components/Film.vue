@@ -6,14 +6,21 @@
           <li>
             <img :src="imageUrlPreview + film.poster_path" :alt="film.name" />
           </li>
-          <li>Title: {{ film.title == undefined ? film.name : film.title }}</li>
+          <li>
+            Title:
+            <strong>{{
+              film.title == undefined ? film.name : film.title
+            }}</strong>
+          </li>
           <li>
             Original title:
-            {{
-              film.original_title == undefined
-                ? film.original_name
-                : film.original_title
-            }}
+            <strong>
+              {{
+                film.original_title == undefined
+                  ? film.original_name
+                  : film.original_title
+              }}
+            </strong>
           </li>
           <li class="img">
             Original language:
