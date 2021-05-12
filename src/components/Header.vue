@@ -81,6 +81,7 @@ export default {
     this.getApi();
     this.apiRecent();
     this.overX();
+    this.preventFocus();
   },
   methods: {
     getApi() {
@@ -125,7 +126,7 @@ export default {
     },
     onfocus(event) {
       event.stopPropagation();
-      this.$refs.search.focus();
+      this.$refs.search.focus(event);
     },
     resetValue(event) {
       event.stopPropagation();
@@ -133,7 +134,7 @@ export default {
       // if (this.search == "") {
       //   this.result = undefined;
       // }
-      // this.$refs.search.focus();
+      this.$refs.search.focus(event);
     },
     resetLibrary() {
       if (this.search == "") {
@@ -144,6 +145,9 @@ export default {
     overX() {
       if (this.search !== "") {
         this.focusOn = true;
+        // this.$refs.search.focus();
+        // } else if (this.$refs.search.focus(false)) {
+        //   this.focusOn = false;
       } else {
         this.focusOn = false;
       }

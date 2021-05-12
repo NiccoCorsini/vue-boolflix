@@ -49,7 +49,14 @@
           </li>
         </ul>
       </div>
-      <img :src="imageUrl + film.poster_path" :alt="film.name" />
+      <img
+        :src="
+          film.media_type == 'movie'
+            ? imageUrlPreview + film.poster_path
+            : imageUrl + film.poster_path
+        "
+        :alt="film.name"
+      />
     </div>
   </div>
 </template>
@@ -63,6 +70,7 @@ export default {
       vote: this.stars,
       imageUrl: "https://image.tmdb.org/t/p/w342/",
       imageUrlPreview: "https://image.tmdb.org/t/p/w185/",
+      imageUrlPp: "https://image.tmdb.org/t/p/w92/",
     };
   },
   methods: {
