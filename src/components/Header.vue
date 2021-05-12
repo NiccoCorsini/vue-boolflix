@@ -37,13 +37,6 @@
               @click.prevent="resetValue($event)"
               class="fas fa-times"
             ></i>
-
-            <!-- <form :class="{ active: focusOn }" action="">
-              <input type="text" name="" id="" v-model.trim="search" />
-              <button @click.prevent="$emit('reSearch', result)">
-                Search
-              </button>
-            </form> -->
           </li>
 
           <li><a href="#">BAMBINI</a></li>
@@ -81,7 +74,6 @@ export default {
     this.getApi();
     this.apiRecent();
     this.overX();
-    this.preventFocus();
   },
   methods: {
     getApi() {
@@ -117,10 +109,8 @@ export default {
           "https://api.themoviedb.org/3/trending/all/week?api_key=44a7a4e50c9163f38b3c927adf4699c8"
         )
         .then((res) => {
-          // this.result = res;
           if (this.search === "") {
             this.result = res.data;
-            console.log(res);
           }
         });
     },
@@ -131,9 +121,6 @@ export default {
     resetValue(event) {
       event.stopPropagation();
       this.search = "";
-      // if (this.search == "") {
-      //   this.result = undefined;
-      // }
       this.$refs.search.focus(event);
     },
     resetLibrary() {
@@ -145,9 +132,6 @@ export default {
     overX() {
       if (this.search !== "") {
         this.focusOn = true;
-        // this.$refs.search.focus();
-        // } else if (this.$refs.search.focus(false)) {
-        //   this.focusOn = false;
       } else {
         this.focusOn = false;
       }
@@ -157,121 +141,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../style/vars";
-
-header {
-  z-index: 3;
-  width: 100%;
-  height: 70px;
-  position: fixed;
-  top: 0;
-  background-color: $primary-bg-color;
-  font-size: 14px;
-  font-weight: 100;
-  .container {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    ul {
-      display: flex;
-      align-items: center;
-      li {
-        &:not(:last-child) {
-          margin-right: 1.5rem;
-        }
-      }
-    }
-    .left {
-      width: 60%;
-      ul {
-        li {
-          &:first-child {
-            margin-right: 2.5rem;
-            img {
-              width: 100px;
-              position: relative;
-              top: 2px;
-            }
-          }
-          &:nth-child(2) {
-            font-weight: 700;
-          }
-        }
-      }
-    }
-    .right {
-      width: 40%;
-      display: flex;
-      justify-content: flex-end;
-      ul {
-        li {
-          i {
-            font-size: 1.2rem;
-          }
-          &:last-child {
-            img {
-              width: 36px;
-              border-radius: 5px;
-              margin-right: 0.6rem;
-            }
-            i {
-              position: relative;
-              bottom: 10px;
-              transition: transform 300ms;
-            }
-            &:hover {
-              i {
-                transform: rotate(180deg);
-              }
-            }
-          }
-          &:first-child {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            position: relative;
-
-            i {
-              position: absolute;
-              left: 7px;
-              cursor: pointer;
-              z-index: 3;
-
-              &:last-child {
-                left: auto;
-                right: 10px;
-              }
-            }
-
-            input {
-              transition: all 300ms;
-              width: 0;
-              outline: none;
-              background: transparent;
-              border: none;
-              padding: 7px 0px 7px 30px;
-              color: white;
-              opacity: 0;
-              border: 1px solid white;
-
-              &::placeholder {
-                color: rgb(170, 170, 170);
-                padding-left: 30px;
-              }
-
-              &:focus {
-                width: 240px;
-                opacity: 1;
-              }
-            }
-
-            // form.active {
-            //   width: 250px;
-            // }
-          }
-        }
-      }
-    }
-  }
-}
+@import "../style/header";
 </style>
