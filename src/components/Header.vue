@@ -11,11 +11,31 @@
                   alt="Netflix"
               /></a>
             </li>
-            <li><a href="#">Home</a></li>
+            <li>
+              <a
+                @click.prevent="
+                  $emit('home', true);
+                  act('home');
+                "
+                :class="{ active: active == 'home' }"
+                href="#Home"
+                >Home</a
+              >
+            </li>
             <li><a href="#">Serie TV</a></li>
             <li><a href="#">Film</a></li>
             <li><a href="#">Nuovi e popolari</a></li>
-            <li><a href="#">La mia lista</a></li>
+            <li>
+              <a
+                @click.prevent="
+                  $emit('list', true);
+                  act('list');
+                "
+                :class="{ active: active == 'list' }"
+                href="#Mylist"
+                >La mia lista</a
+              >
+            </li>
           </ul>
         </nav>
       </div>
@@ -32,9 +52,10 @@
               @keyup.esc="resetValue"
               ref="search"
             />
+            <!-- @click.prevent="resetValue($event)" -->
             <i
               v-show="focusOn"
-              @click.prevent="resetValue($event)"
+              @mousedown="resetValue($event)"
               class="fas fa-times"
             ></i>
           </li>
@@ -62,11 +83,13 @@ import axios from "axios";
 
 export default {
   name: "Header",
+
   data() {
     return {
       search: "",
       result: {},
       focusOn: false,
+      active: "home",
     };
   },
   updated() {
@@ -75,6 +98,7 @@ export default {
     this.apiRecent();
     this.overX();
   },
+
   methods: {
     getApi() {
       if (this.search.length > 0) {
@@ -119,6 +143,7 @@ export default {
       this.$refs.search.focus(event);
     },
     resetValue(event) {
+      event.preventDefault();
       event.stopPropagation();
       this.search = "";
       this.$refs.search.focus(event);
@@ -135,6 +160,9 @@ export default {
       } else {
         this.focusOn = false;
       }
+    },
+    act(param) {
+      this.active = param;
     },
   },
 };

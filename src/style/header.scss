@@ -34,8 +34,16 @@ header {
               top: 2px;
             }
           }
-          &:nth-child(2) {
+        }
+        li {
+          a {
+            transition: color 300ms;
+          }
+          a.active {
             font-weight: 700;
+          }
+          a:not(.active):hover {
+            color: rgb(150, 150, 150);
           }
         }
       }

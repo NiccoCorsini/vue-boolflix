@@ -4,7 +4,11 @@
       <div class="layover">
         <ul>
           <li>
-            <img :src="imageUrlPreview + film.poster_path" :alt="film.name" />
+            <img
+              v-if="film.poster_path !== null"
+              :src="imageUrlPreview + film.poster_path"
+              :alt="film.name"
+            />
           </li>
           <li>
             Title:
@@ -50,13 +54,17 @@
         </ul>
       </div>
       <img
-        :src="
+        v-if="film.poster_path == null"
+        src="https://www.metropolitanpiombino.it/wp-content/uploads/2018/11/coming-soon.jpg"
+        alt="coming soon"
+        style="width: 342px; height: 514px"
+      />
+      <img v-else :alt="film.name" :src="imageUrl + film.poster_path" />
+      <!-- :src="
           film.media_type == 'movie'
             ? imageUrlPreview + film.poster_path
             : imageUrl + film.poster_path
-        "
-        :alt="film.name"
-      />
+        " -->
     </div>
   </div>
 </template>
@@ -70,6 +78,7 @@ export default {
       vote: this.stars,
       imageUrl: "https://image.tmdb.org/t/p/w342/",
       imageUrlPreview: "https://image.tmdb.org/t/p/w185/",
+      imageUrlO: "https://image.tmdb.org/t/p/original/",
       imageUrlPp: "https://image.tmdb.org/t/p/w92/",
     };
   },

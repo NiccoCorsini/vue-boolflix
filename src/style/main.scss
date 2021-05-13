@@ -21,6 +21,7 @@ main.container {
       padding: 4rem 6rem;
       display: flex;
       justify-content: center;
+      z-index: 5;
       .dati {
         width: 40%;
         padding-right: 4rem;
@@ -64,16 +65,11 @@ main.container {
   .preview {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
   }
   .preview.film {
-    max-width: 100%;
     overflow-x: auto;
     flex-wrap: nowrap;
-
-    .movie {
-      width: 250px;
-    }
   }
   .film {
     cursor: pointer;

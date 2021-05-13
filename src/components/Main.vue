@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-    <div v-if="showDetails" class="details">
+    <!-- <div v-if="showDetails" class="details">
       <div class="megaposter">
         <div class="details">
           <div class="dati">
@@ -17,6 +17,8 @@
                 >{{ filmPage.release_date }}{{ filmPage.first_air_date }}</span
               >
             </h4>
+
+            <button @click.prevent="$emit('favourite', filmPage)">Add</button>
           </div>
           <img
             class="posterdata"
@@ -26,7 +28,15 @@
         </div>
         <img :src="imageUrl + filmPage.poster_path" :alt="filmPage.title" />
       </div>
-    </div>
+    </div> -->
+    <Filmdetails
+      v-if="showDetails"
+      :filmPage="filmPage"
+      @detailsOff="detailsOff"
+      @favourite="updateList"
+      @remove="removeList"
+    />
+
     <div v-else class="discovery">
       <br />
       <h1 v-show="showStart">Serie TV</h1>
@@ -70,11 +80,13 @@
 <script>
 import axios from "axios";
 import Film from "../components/Film";
+import Filmdetails from "../components/Filmdetails";
 
 export default {
   name: "Main",
   components: {
     Film,
+    Filmdetails,
   },
   props: {
     objRes: Object,
@@ -123,8 +135,14 @@ export default {
       this.filmPage = film;
       this.showDetails = true;
     },
-    detailsOff() {
-      this.showDetails = false;
+    detailsOff(boolean) {
+      this.showDetails = boolean;
+    },
+    updateList(page) {
+      this.$emit("favourite", page);
+    },
+    removeList(page) {
+      this.$emit("remove", page);
     },
   },
 };
