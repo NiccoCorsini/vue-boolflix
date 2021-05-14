@@ -9,6 +9,20 @@
 html {
   scrollbar-width: thin;
   scrollbar-color: #dc1a28 transparent;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #dc1a28;
+    border-radius: 20px;
+    border: none;
+  }
 }
 
 body {
@@ -51,50 +65,4 @@ ul li {
     box-shadow: none;
     transform: scale(0.9);
   }
-
-  // .btn.active {
-  //   position: relative;
-  //   animation: ghost 600ms linear forwards;
-
-  //   &::after {
-  //     content: "OK";
-  //     display: block;
-  //     width: 30px;
-  //     font-size: 1rem;
-  //     color: lightgreen;
-  //     font-weight: 700;
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //   }
-
-  //   @keyframes ghost {
-  //     from {
-  //       opacity: 0;
-  //     }
-  //     50% {
-  //       opacity: 1;
-  //       top: -10px;
-  //     }
-  //     to {
-  //       opacity: 0;
-  //       top: -20px;
-  //     }
-  //   }
-  // }
-  // &:focus {
-  //   animation: ghost 300ms ease forwards;
-
-  //   @keyframes ghost {
-  //     from {
-  //       transform: translateY(0);
-  //     }
-  //     50% {
-  //       transform: translateY(-15px);
-  //     }
-  //     to {
-  //       transform: translateY(0);
-  //     }
-  //   }
-  // }
 }

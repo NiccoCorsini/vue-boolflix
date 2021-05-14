@@ -17,6 +17,20 @@ main {
       scrollbar-width: thin;
       scrollbar-color: #dc1a28 transparent;
       margin-bottom: 5px;
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #dc1a28;
+        border-radius: 20px;
+        border: none;
+      }
     }
     .preview {
       .film {
