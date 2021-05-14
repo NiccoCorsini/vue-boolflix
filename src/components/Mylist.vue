@@ -1,14 +1,34 @@
 <template>
   <div class="container">
-    <div v-if="lista.length == 0" class="noitems">
-      <h1>La tua lista non contiene nessun titolo al momento...</h1>
-    </div>
-    <div v-else class="list">
-      <div v-for="(film, index) in lista" :key="film.id + index" class="film">
-        <button class="btn" @click.prevent="$emit('remove', film)">
-          remove
-        </button>
-        <Film :film="film" />
+    <Filmdetails
+      v-if="showDetails"
+      :filmPage="filmPage"
+      @detailsOff="detailsOff"
+      @favourite="updateList"
+      @remove="removeList"
+    />
+    <div v-else class="container">
+      <div v-if="lista.length == 0" class="noitems">
+        <h1>La tua lista non contiene nessun titolo al momento...</h1>
+      </div>
+      <div v-else class="list">
+        <div
+          v-for="(film, index) in lista"
+          :key="film.id + index"
+          class="film"
+          @click="details(film)"
+        >
+          <button
+            class="btn"
+            @mousedown.prevent="
+              $emit('remove', film);
+              detailsOff(false);
+            "
+          >
+            remove
+          </button>
+          <Film :film="film" />
+        </div>
       </div>
     </div>
   </div>
@@ -16,6 +36,7 @@
 
 <script>
 import Film from "../components/Film";
+import Filmdetails from "../components/Filmdetails";
 
 export default {
   name: "Mylist",
@@ -24,6 +45,28 @@ export default {
   },
   components: {
     Film,
+    Filmdetails,
+  },
+  data() {
+    return {
+      showDetails: false,
+      showStart: false,
+    };
+  },
+  methods: {
+    details(film) {
+      this.filmPage = film;
+      this.showDetails = true;
+    },
+    detailsOff(boolean) {
+      this.showDetails = boolean;
+    },
+    updateList(page) {
+      this.$emit("favourite", page);
+    },
+    removeList(page) {
+      this.$emit("remove", page);
+    },
   },
 };
 </script>
