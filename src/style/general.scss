@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #dc1a28 transparent;
+}
+
 body {
   font-family: sans-serif;
   color: $primary-font-color;

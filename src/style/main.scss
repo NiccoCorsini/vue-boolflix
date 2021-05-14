@@ -14,6 +14,8 @@ main {
       overflow-y: hidden;
       justify-content: flex-start;
       flex-wrap: nowrap;
+      scrollbar-width: thin;
+      scrollbar-color: #dc1a28 transparent;
     }
     .preview {
       .film {
