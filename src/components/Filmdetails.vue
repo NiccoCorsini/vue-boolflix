@@ -269,6 +269,16 @@ export default {
       }
       .trailer {
         animation: appear 500ms linear forwards;
+
+        @keyframes appear {
+          from {
+            opacity: 0;
+          }
+
+          to {
+            opacity: 1;
+          }
+        }
       }
     }
   }
