@@ -52,7 +52,6 @@
               @keyup.esc="resetValue"
               ref="search"
             />
-            <!-- @click.prevent="resetValue($event)" -->
             <i
               v-show="focusOn"
               @mousedown="resetValue($event)"
@@ -128,23 +127,6 @@ export default {
           .then((res) => {
             this.resultTv = res.data.results;
           });
-
-        // .then((res) => {
-        //   this.result = res.data;
-        //   if (res.data.results.length === 0) {
-        //     axios
-        //       .get("http://api.themoviedb.org/3/search/tv/", {
-        //         params: {
-        //           api_key: "44a7a4e50c9163f38b3c927adf4699c8",
-        //           // language: "it-IT",
-        //           query: this.search,
-        //         },
-        //       })
-        //       .then((res) => {
-        //         this.result = res.data;
-        //       });
-        //   }
-        // });
       }
     },
     apiRecent() {
