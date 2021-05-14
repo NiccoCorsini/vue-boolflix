@@ -88,6 +88,8 @@ export default {
     return {
       search: "",
       result: {},
+      resultMovie: [],
+      resultTv: [],
       focusOn: false,
       active: "home",
     };
@@ -97,6 +99,7 @@ export default {
     this.getApi();
     this.apiRecent();
     this.overX();
+    this.mergeObj();
   },
 
   methods: {
@@ -109,22 +112,39 @@ export default {
               query: this.search,
             },
           })
+
           .then((res) => {
-            this.result = res.data;
-            if (res.data.results.length === 0) {
-              axios
-                .get("http://api.themoviedb.org/3/search/tv/", {
-                  params: {
-                    api_key: "44a7a4e50c9163f38b3c927adf4699c8",
-                    // language: "it-IT",
-                    query: this.search,
-                  },
-                })
-                .then((res) => {
-                  this.result = res.data;
-                });
-            }
+            this.resultMovie = res.data.results;
           });
+
+        axios
+          .get("http://api.themoviedb.org/3/search/tv/", {
+            params: {
+              api_key: "44a7a4e50c9163f38b3c927adf4699c8",
+              // language: "it-IT",
+              query: this.search,
+            },
+          })
+          .then((res) => {
+            this.resultTv = res.data.results;
+          });
+
+        // .then((res) => {
+        //   this.result = res.data;
+        //   if (res.data.results.length === 0) {
+        //     axios
+        //       .get("http://api.themoviedb.org/3/search/tv/", {
+        //         params: {
+        //           api_key: "44a7a4e50c9163f38b3c927adf4699c8",
+        //           // language: "it-IT",
+        //           query: this.search,
+        //         },
+        //       })
+        //       .then((res) => {
+        //         this.result = res.data;
+        //       });
+        //   }
+        // });
       }
     },
     apiRecent() {
@@ -163,6 +183,11 @@ export default {
     },
     act(param) {
       this.active = param;
+    },
+    mergeObj() {
+      this.result = {
+        results: this.resultMovie.concat(this.resultTv),
+      };
     },
   },
 };

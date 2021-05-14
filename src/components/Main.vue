@@ -1,76 +1,48 @@
 <template>
-  <main class="container">
-    <!-- <div v-if="showDetails" class="details">
-      <div class="megaposter">
-        <div class="details">
-          <div class="dati">
-            <i @click="detailsOff" class="fas fa-arrow-left"></i>
-            <h1>{{ filmPage.title }}{{ filmPage.name }}</h1>
-            <br />
-            <h3>
-              Vote: <span>{{ filmPage.vote_average }}</span>
-            </h3>
-            <p>{{ filmPage.overview }}</p>
-            <h4>
-              Release date:
-              <span
-                >{{ filmPage.release_date }}{{ filmPage.first_air_date }}</span
-              >
-            </h4>
-
-            <button @click.prevent="$emit('favourite', filmPage)">Add</button>
+  <main>
+    <div class="container">
+      <Filmdetails
+        v-if="showDetails"
+        :filmPage="filmPage"
+        @detailsOff="detailsOff"
+        @favourite="updateList"
+        @remove="removeList"
+      />
+      <div v-else class="discovery">
+        <br />
+        <h1 v-show="showStart">Serie TV</h1>
+        <br />
+        <div v-if="showStart" class="preview">
+          <div
+            class="film"
+            v-for="(film, index) in objTv"
+            :key="objTv.id + '-' + index"
+            @click="details(film)"
+          >
+            <Film :film="film" />
           </div>
-          <img
-            class="posterdata"
-            :src="imageUrl + filmPage.poster_path"
-            :alt="filmPage.title"
-          />
         </div>
-        <img :src="imageUrl + filmPage.poster_path" :alt="filmPage.title" />
-      </div>
-    </div> -->
-    <Filmdetails
-      v-if="showDetails"
-      :filmPage="filmPage"
-      @detailsOff="detailsOff"
-      @favourite="updateList"
-      @remove="removeList"
-    />
-
-    <div v-else class="discovery">
-      <br />
-      <h1 v-show="showStart">Serie TV</h1>
-      <br />
-      <div v-if="showStart" class="preview">
-        <div
-          class="film"
-          v-for="(film, index) in objTv"
-          :key="objTv.id + '-' + index"
-          @click="details(film)"
-        >
-          <Film :film="film" />
+        <br />
+        <h1 v-show="showStart">Film</h1>
+        <div v-if="showStart" class="pellicola">
+          <div
+            class="movie"
+            v-for="(film, index) in objMovie"
+            :key="objMovie.id + '-' + index"
+            @click="details(film)"
+          >
+            <Film :film="film"> </Film>
+          </div>
         </div>
-      </div>
-      <br />
-      <h1 v-show="showStart">Film</h1>
-      <div v-if="showStart" class="preview film">
-        <div
-          class="film movie"
-          v-for="(film, index) in objMovie"
-          :key="objMovie.id + '-' + index"
-          @click="details(film)"
-        >
-          <Film :film="film"> </Film>
-        </div>
-      </div>
-      <div v-else class="searched">
-        <div
-          class="film"
-          v-for="(film, index) in objRes.results"
-          :key="film.id + '-' + index"
-          @click="details(film)"
-        >
-          <Film :film="film"> </Film>
+        <div v-else class="searched">
+          <div
+            class="film"
+            v-for="(film, index) in objRes.results"
+            :key="film.id + '-' + index"
+            @click="details(film)"
+          >
+            <Film :film="film"> </Film>
+          </div>
         </div>
       </div>
     </div>
@@ -126,7 +98,7 @@ export default {
             this.objMovie = res.data.results.filter(
               (element) => element.media_type == "movie"
             );
-          } else if (this.objRes.results.length > 0) {
+          } else if (this.objRes.results !== undefined) {
             this.showStart = false;
           }
         });

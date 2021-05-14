@@ -1,82 +1,35 @@
 @import "../style/vars";
-main.container {
-  .megaposter {
-    height: calc(100vh - 70px);
-    width: 109.2%;
-    transform: translateX(-5%);
-    margin: -30px auto 0;
-    overflow: hidden;
-    position: relative;
-
-    img {
-      filter: blur(10px);
-      width: 100%;
-      opacity: 0.2;
-      position: relative;
-    }
-    .details {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      padding: 4rem 6rem;
+main {
+  .container {
+    .searched,
+    .preview,
+    .pellicola {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      z-index: 5;
-      .dati {
-        width: 40%;
-        padding-right: 4rem;
-        i {
-          cursor: pointer;
-          z-index: 3;
-          position: absolute;
-          top: 20px;
-          left: 70px;
-          font-size: 2rem;
+    }
+
+    .pellicola {
+      overflow-x: auto;
+      overflow-y: hidden;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+    }
+    .preview {
+      .film {
+        Film {
+          min-width: 342px !important;
         }
-        h1 {
-          margin-bottom: 2.5rem;
-        }
-        h3 {
-          margin-bottom: 2rem;
-          span {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            margin-left: 10px;
-          }
-        }
-        h4 {
-          margin-top: 2rem;
-          span {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            margin-left: 10px;
-          }
-        }
-      }
-      .posterdata {
-        width: 500px;
-        height: 700px;
-        filter: blur(0);
-        opacity: 1;
       }
     }
-  }
-  .searched,
-  .preview {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .preview.film {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-  }
-  .film {
-    cursor: pointer;
-    padding: 2rem 1rem;
-    transition: transform 400ms;
-    &:hover {
-      transform: scale(1.1);
+    .film,
+    .movie {
+      cursor: pointer;
+      padding: 2rem 1rem;
+      transition: transform 400ms;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 }
