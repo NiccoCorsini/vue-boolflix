@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Filmdetails
+      :lista="lista"
       v-if="showDetails"
       :filmPage="filmPage"
       @detailsOff="detailsOff"

@@ -4,6 +4,7 @@
 
     <Main
       v-show="activateHomeBool"
+      :lista="favouriteList"
       :objRes="objRes"
       @favourite="addToFavourite"
       @remove="removeFromFavourite"

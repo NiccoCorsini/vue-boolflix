@@ -7,6 +7,7 @@
         @detailsOff="detailsOff"
         @favourite="updateList"
         @remove="removeList"
+        :lista="lista"
       />
       <div v-else class="discovery">
         <br />
@@ -62,6 +63,7 @@ export default {
   },
   props: {
     objRes: Object,
+    lista: Array,
   },
   data() {
     return {

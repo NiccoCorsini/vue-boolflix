@@ -23,6 +23,7 @@
 
             <div class="actions">
               <button
+                v-if="!lista.includes(filmPage)"
                 class="btn"
                 :class="{ activeadd: active == 'add' }"
                 @click.prevent="
@@ -34,7 +35,7 @@
               </button>
 
               <button
-                style="margin-left: 20px"
+                v-else
                 class="btn"
                 :class="{ activerem: active == 'remove' }"
                 @click.prevent="
@@ -81,6 +82,7 @@ export default {
   name: "Filmdetails",
   props: {
     filmPage: Object,
+    lista: Array,
   },
   components: {
     Trailer,
