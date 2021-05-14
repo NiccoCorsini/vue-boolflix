@@ -96,14 +96,6 @@ export default {
   },
   created() {
     this.getTrailer();
-    // console.log(this.filmPage.id);
-    // console.log(this.trailerTv);
-    setTimeout(() => {
-      this.cazzi();
-    }, 100);
-  },
-  updated() {
-    // this.getTrailer();
   },
   methods: {
     act(param) {
@@ -130,9 +122,6 @@ export default {
             this.trailerTv = res.data.results[0].key;
           });
       }
-    },
-    cazzi() {
-      console.log(this.trailerMovie);
     },
   },
 };

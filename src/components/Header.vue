@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header @click.prevent="superclose = true">
     <div class="container">
       <div class="left">
         <nav>
@@ -41,7 +41,12 @@
       </div>
       <div class="right">
         <ul>
-          <li @click.prevent="onfocus($event)">
+          <li
+            @click.prevent="
+              onfocus($event);
+              superclose = false;
+            "
+          >
             <i class="fas fa-search"></i>
 
             <input
@@ -54,6 +59,7 @@
             />
             <i
               v-show="focusOn"
+              v-if="!superclose"
               @mousedown="resetValue($event)"
               class="fas fa-times"
             ></i>
@@ -90,6 +96,7 @@ export default {
       resultMovie: [],
       resultTv: [],
       focusOn: false,
+      superclose: false,
       active: "home",
     };
   },
@@ -159,6 +166,8 @@ export default {
     overX() {
       if (this.search !== "") {
         this.focusOn = true;
+      } else if (this.search !== "" && this.$refs.search.blur()) {
+        this.focusOn = false;
       } else {
         this.focusOn = false;
       }
